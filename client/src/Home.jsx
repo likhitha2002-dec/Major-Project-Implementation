@@ -73,34 +73,65 @@ function Home() {
     }
   };
 
-
-
   const saveToFile = async () => {
     try {
-      // Specify the directory where you want to save the files
-      const saveDirectory = 'C:\\Users\\lekkala likhitha\\Downloads';
-  
-      // Construct the full path for saving the file
-      const filePath = `${saveDirectory}/${fileName}`;
-  
-      // Save the file content to the specified path
-      // (You may choose to comment this line if you don't want to save it to disk)
-      // fs.writeFileSync(filePath, fileContent, 'utf-8');
-  
-      // Update the file content in the MongoDB database
-      const response = await axios.post('http://localhost:3001/save-file', {
-        fileName: fileName,
-        fileContent: fileContent,
-        userEmail: userEmail,  // Send the user email to identify the employee
-      });
-  
-      console.log('File saved successfully in MongoDB:', response.data);
-      setSavingFile(false);  // Update the savingFile state if needed
+        // Specify the directory where you want to save the files
+        const saveDirectory = 'C:\\Users\\lekkala likhitha\\Downloads';
+
+        // Construct the full path for saving the file
+        const filePath = `${saveDirectory}/${fileName}`;
+
+        // Save the file content to the specified path
+        // (You may choose to comment this line if you don't want to save it to disk)
+        // fs.writeFileSync(filePath, fileContent, 'utf-8');
+
+        // Update the file content in the MongoDB database
+        const response = await axios.post('http://localhost:3001/save-file', {
+            fileName: fileName,
+            fileContent: fileContent,
+            userEmail: userEmail,  // Send the user email to identify the employee
+        });
+
+        console.log('File saved successfully in MongoDB:', response.data);
+
+        // Update the savingFile state if needed
+        setSavingFile(false);
     } catch (error) {
-      console.error('Error saving file:', error);
-      setSavingFile(false);  // Update the savingFile state if needed
+        console.error('Error saving file:', error);
+
+        // Handle the error appropriately, e.g., show an error message to the user
+        // Update the savingFile state if needed
+        setSavingFile(false);
     }
-  };
+};
+
+
+  // const saveToFile = async () => {
+  //   try {
+  //     // Specify the directory where you want to save the files
+  //     const saveDirectory = 'C:\\Users\\lekkala likhitha\\Downloads';
+  
+  //     // Construct the full path for saving the file
+  //     const filePath = `${saveDirectory}/${fileName}`;
+  
+  //     // Save the file content to the specified path
+  //     // (You may choose to comment this line if you don't want to save it to disk)
+  //     // fs.writeFileSync(filePath, fileContent, 'utf-8');
+  
+  //     // Update the file content in the MongoDB database
+  //     const response = await axios.post('http://localhost:3001/save-file', {
+  //       fileName: fileName,
+  //       fileContent: fileContent,
+  //       userEmail: userEmail,  // Send the user email to identify the employee
+  //     });
+  
+  //     console.log('File saved successfully in MongoDB:', response.data);
+  //     setSavingFile(false);  // Update the savingFile state if needed
+  //   } catch (error) {
+  //     console.error('Error saving file:', error);
+  //     setSavingFile(false);  // Update the savingFile state if needed
+  //   }
+  // };
   
 
   const handleCreateProjectClick = () => {

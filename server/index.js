@@ -106,25 +106,7 @@ app.post('/generate-image', async (req, res) => {
     }
 });
 
-// app.post('/save-file', (req, res) => {
-//   try {
-//       const { fileName, fileContent } = req.body;
 
-//       // Specify the directory where you want to save the files
-//       const saveDirectory = 'C:\\Users\\lekkala likhitha\\Downloads';
-
-//       // Construct the full path for saving the file
-//       const filePath = path.join(saveDirectory, fileName);
-
-//       // Save the file content to the specified path
-//       fs.writeFileSync(filePath, fileContent, 'utf-8');
-
-//       res.json({ message: 'File saved successfully' });
-//   } catch (error) {
-//       console.error('Error saving file:', error);
-//       res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// });
 
 app.post('/save-file', async (req, res) => {
     try {
@@ -134,8 +116,11 @@ app.post('/save-file', async (req, res) => {
         const updatedEmployee = await EmployeeModel.findOneAndUpdate(
             { email: userEmail },
             {
-                $addToSet: {
-                    savedFiles: { fileName, fileContent }
+                $push: {
+                    savedFiles: {
+                        fileName,
+                        fileContent
+                    }
                 }
             },
             { new: true }
@@ -154,30 +139,7 @@ app.post('/save-file', async (req, res) => {
     }
 });
 
-// app.post('/save-file', async (req, res) => {
-//     try {
-//       const { fileName, fileContent, userEmail } = req.body;
-  
-//       // Update the file content in the MongoDB database
-//       const updatedEmployee = await EmployeeModel.findOneAndUpdate(
-//         { email: userEmail, 'savedFiles.fileName': fileName },
-//         { $set: { 'savedFiles.$.fileContent': fileContent } },
-//         { new: true }
-//       );
-  
-//       if (updatedEmployee) {
-//         console.log('File content updated in MongoDB:', updatedEmployee);
-//         res.json({ message: 'File saved successfully in MongoDB' });
-//       } else {
-//         console.error('Employee or file not found in MongoDB');
-//         res.status(404).json({ error: 'Employee or file not found' });
-//       }
-//     } catch (error) {
-//       console.error('Error updating file content in MongoDB:', error);
-//       res.status(500).json({ error: 'Internal Server Error' });
-//     }
-//   });
-  
+
 const secretKey = 'U8w2*sZv$Bq6@pYtT5rKl#nA!9E4gHj';
 
 app.post('/login', async (req, res) => {

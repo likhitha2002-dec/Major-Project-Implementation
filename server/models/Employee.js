@@ -11,21 +11,19 @@
 
 
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const SavedFileSchema = new mongoose.Schema({
-  fileName: String,
-  filePath: String,
-  fileContent: String,  // Add this field for storing file content
+const employeeSchema = new Schema({
+    name: String,
+    email: { type: String, unique: true },
+    password: String,
+    savedFiles: {
+        fileName: String,
+        fileContent: String
+    }
 });
 
-const EmployeeSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  password: String,
-  savedFiles: [SavedFileSchema],
-});
-
-const EmployeeModel = mongoose.model('employees', EmployeeSchema);
+const EmployeeModel = mongoose.model('Employee', employeeSchema);
 
 module.exports = EmployeeModel;
 
